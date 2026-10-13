@@ -1,4 +1,4 @@
-package com.example.prototipofinly.data
+package com.example.prototipofinly.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,8 +7,5 @@ import androidx.room.PrimaryKey
 //Clase categoria
 data class Categoria (
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val nombre: String,
-    val descripcion: String,
-    val listaGastos: List<Gasto>
-
+    val nombre: String
 )

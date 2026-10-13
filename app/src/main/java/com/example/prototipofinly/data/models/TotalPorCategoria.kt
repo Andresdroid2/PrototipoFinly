@@ -1,4 +1,4 @@
-package com.example.prototipofinly.data
+package com.example.prototipofinly.data.models
 
 //Clase para calcular el total por cada categoria
 data class TotalPorCategoria(
