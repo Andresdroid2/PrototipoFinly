@@ -11,11 +11,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -29,8 +33,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.prototipofinly.ui.screens.HistorialScreen
 import com.example.prototipofinly.ui.screens.gastos.GastosScreen
 import com.example.prototipofinly.ui.screens.gastos.GastosViewModel
-import com.example.prototipofinly.ui.screens.loginYregistro.AuthScreen
-import com.example.prototipofinly.ui.screens.loginYregistro.AuthViewModel
+import com.example.prototipofinly.ui.screens.login.AuthScreen
+import com.example.prototipofinly.ui.screens.login.AuthViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
