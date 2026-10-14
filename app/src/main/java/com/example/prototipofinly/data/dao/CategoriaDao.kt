@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.prototipofinly.data.models.Categoria
-import com.example.prototipofinly.data.models.GastosConCategoria
+import com.example.prototipofinly.data.models.CategoriaConGastos
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,7 +15,7 @@ interface CategoriaDao {
 
     @Transaction
     @Query("SELECT * FROM categorias ORDER BY nombre")
-    fun observarConGastos(): Flow<List<GastosConCategoria>>
+    fun observarConGastos(): Flow<List<CategoriaConGastos>>
 
     @Insert
     suspend fun insertar(categoria: Categoria)

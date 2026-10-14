@@ -66,8 +66,14 @@ class MainActivity : ComponentActivity() {
                             TextButton(onClick = authVm::cerrarSesion) { Text("Cerrar sesión") }
                         }
                         TabRow(selectedTabIndex = pestana) {
-                            Tab(selected = pestana == 0, onClick = { pestana = 0 }, text = { Text("Gastos") })
-                            Tab(selected = pestana == 1, onClick = { pestana = 1 }, text = { Text("Historial") })
+                            Tab(
+                                selected = pestana == 0,
+                                onClick = { pestana = 0 },
+                                text = { Text("Gastos") })
+                            Tab(
+                                selected = pestana == 1,
+                                onClick = { pestana = 1 },
+                                text = { Text("Historial") })
                         }
                         when (pestana) {
                             0 -> GastosScreen(gastosVm)
