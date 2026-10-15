@@ -16,7 +16,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
+import androidx.compose.ui.platform.LocalContext
+import androidx.glance.appwidget.updateAll
+import com.example.prototipofinly.ui.widget.GastosWidget
+import com.example.prototipofinly.ui.widget.WidgetPrefs
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -47,6 +50,16 @@ class MainActivity : ComponentActivity() {
                 val usuario by authVm.usuario.collectAsStateWithLifecycle()
                 var pestana by remember { mutableIntStateOf(0) }
                 val actual = usuario
+
+                val context = LocalContext.current
+
+                LaunchedEffect(actual?.id) {
+                    if (actual == null) gastosVm.cerrarSesion()
+                    else gastosVm.seleccionarUsuario(actual.id)
+
+                    WidgetPrefs.guardarUsuario(context, actual?.id)
+                    GastosWidget().updateAll(context)
+                }
 
                 LaunchedEffect(actual?.id) {
                     if (actual == null) gastosVm.cerrarSesion()

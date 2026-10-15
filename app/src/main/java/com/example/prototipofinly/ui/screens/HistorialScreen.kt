@@ -62,6 +62,7 @@ fun HistorialContent(
                 Column(
                     Modifier
                         .fillMaxWidth()
+                        .background(Color(224,224,224))
                         .clickable {
                             expandidas = if (abierta) expandidas - id else expandidas + id
                         }
@@ -84,7 +85,8 @@ fun HistorialContent(
                         }
                         Text(
                             "$${"%.2f".format(item.total)}",
-                            style = MaterialTheme.typography.titleMedium
+                            style = MaterialTheme.typography.titleMedium,
+                            color = Color.Red
                         )
                     }
 
@@ -106,7 +108,7 @@ fun HistorialContent(
                                         style = MaterialTheme.typography.bodySmall
                                     )
                                 }
-                                Text("$${"%.2f".format(gasto.monto)}")
+                                Text("$${"%.2f".format(gasto.monto)}", color = Color.Red)
                             }
                         }
                     }

@@ -71,13 +71,13 @@ fun GastosContent(
     ) {
         Image(
             painter = painterResource(R.drawable.icon2),
-            modifier = Modifier.size(200.dp),
+            modifier = Modifier.size(140.dp),
             contentDescription = "Logo de la app"
         )
 
         Column(Modifier.fillMaxSize().clip(ShapeDefaults.ExtraLarge.copy(bottomStart = CornerSize(0.dp), bottomEnd = CornerSize(0.dp)))
             .background(color = Color(252, 203, 84)).padding(10.dp)) {
-            Text("Total \n $${"%.2f".format(total)}", style = MaterialTheme.typography.headlineMedium,modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, fontFamily = titanone, color = Color.Black)
+            Text("Total \n $${"%.2f".format(total)}", style = MaterialTheme.typography.headlineSmall,modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center, fontFamily = titanone, color = Color.Black)
 
             if (totales.isNotEmpty()) {
                 Spacer(Modifier.height(8.dp))
@@ -90,12 +90,12 @@ fun GastosContent(
                 }
             }
 
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(10.dp))
 
             OutlinedTextField(
                 value = nombre,
                 onValueChange = { nombre = it },
-                placeholder = { Text("Nombre", color = Color.Gray,fontFamily = titanone, fontSize = 19.sp) },
+                placeholder = { Text("Nombre", color = Color.Gray,fontFamily = titanone, fontSize = 14.sp) },
                 singleLine = true,
                 shape = RoundedCornerShape(30.dp),
                 colors = OutlinedTextFieldDefaults.colors(
@@ -112,7 +112,7 @@ fun GastosContent(
             OutlinedTextField(
                 value = descripcion,
                 onValueChange = { descripcion = it },
-                placeholder = { Text("Descripción (opcional)", color = Color.Gray,fontFamily = titanone, fontSize = 19.sp)  },
+                placeholder = { Text("Descripción (opcional)", color = Color.Gray,fontFamily = titanone, fontSize = 14.sp)  },
                 shape = RoundedCornerShape(30.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.Transparent,
@@ -128,7 +128,7 @@ fun GastosContent(
             OutlinedTextField(
                 value = monto,
                 onValueChange = { monto = it },
-                placeholder = { Text("Monto", color = Color.Gray,fontFamily = titanone, fontSize = 19.sp) },
+                placeholder = { Text("Monto", color = Color.Gray,fontFamily = titanone, fontSize = 15.sp) },
                 singleLine = true,
                 shape = RoundedCornerShape(30.dp),
                 colors = OutlinedTextFieldDefaults.colors(
@@ -141,39 +141,49 @@ fun GastosContent(
                 ),
                 modifier = Modifier.fillMaxWidth()
             )
-
-            Box(Modifier.padding(vertical = 8.dp)) {
-                OutlinedButton(onClick = { menuAbierto = true }, colors = ButtonDefaults.buttonColors(Color(0xFF2F2D28))) {
-                    Text(categoriaActual?.nombre ?: "Categoría",color = Color.White, fontWeight = FontWeight.Bold)
-                }
-                DropdownMenu(expanded = menuAbierto, onDismissRequest = { menuAbierto = false }) {
-                    categorias.forEach { categoria ->
-                        DropdownMenuItem(
-                            text = { Text(categoria.nombre) },
-                            onClick = {
-                                elegida = categoria
-                                menuAbierto = false
-                            }
+            Row (horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()){
+                Box(Modifier.padding(vertical = 8.dp)) {
+                    OutlinedButton(
+                        onClick = { menuAbierto = true },
+                        colors = ButtonDefaults.buttonColors(Color(0xFF2F2D28))
+                    ) {
+                        Text(
+                            categoriaActual?.nombre ?: "Categoría",
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold
                         )
                     }
+                    DropdownMenu(
+                        expanded = menuAbierto,
+                        onDismissRequest = { menuAbierto = false }) {
+                        categorias.forEach { categoria ->
+                            DropdownMenuItem(
+                                text = { Text(categoria.nombre) },
+                                onClick = {
+                                    elegida = categoria
+                                    menuAbierto = false
+                                }
+                            )
+                        }
+                    }
                 }
+
+                Button(
+                    onClick = {
+                        val cat = categoriaActual ?: return@Button
+                        onAgregar(nombre, descripcion, monto.toDoubleOrNull() ?: 0.0, cat.id)
+                        nombre = ""
+                        descripcion = ""
+                        monto = ""
+                    },
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    colors = ButtonDefaults.buttonColors(Color(0xFF2F2D28)),
+                    enabled = categoriaActual != null && nombre.isNotBlank()
+                ) { Text("Agregar gasto") }
             }
-
-            Button(
-                onClick = {
-                    val cat = categoriaActual ?: return@Button
-                    onAgregar(nombre, descripcion, monto.toDoubleOrNull() ?: 0.0, cat.id)
-                    nombre = ""
-                    descripcion = ""
-                    monto = ""
-                },
-                colors = ButtonDefaults.buttonColors(Color(0xFF2F2D28)),
-                enabled = categoriaActual != null && nombre.isNotBlank()
-            ) { Text("Agregar gasto",color = Color.White, fontWeight = FontWeight.Bold) }
-
             Spacer(Modifier.height(8.dp))
 
-            LazyColumn {
+            LazyColumn(Modifier.fillMaxSize()) {
                 items(gastos, key = { it.gasto.id }) { item ->
                     Row(
                         Modifier.fillMaxWidth().background(Color(224,224,224)).padding(vertical = 8.dp),
